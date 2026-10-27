@@ -17,12 +17,13 @@
             Console.WriteLine("                                                                       ");
             Console.WriteLine("1. Add a new task");
             Console.WriteLine("2. Edit a task");
-            Console.WriteLine("3. Remove a task");
-            Console.WriteLine("4. View all tasks");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("3. Mark a task as complete");
+            Console.WriteLine("4. Remove a task");
+            Console.WriteLine("5. View all tasks");
+            Console.WriteLine("6. Exit");
             Console.WriteLine("                                                                       ");
 
-            Console.Write("Enter your choice (1-5): ");
+            Console.Write("Enter your choice (1-6): ");
             int choice = int.Parse(Console.ReadLine());
 
             while (running)
@@ -151,8 +152,42 @@
 
                         break;
 
-
                     case 3:
+                        // Mark a task as complete
+                        if (taskList.ThingsToDo.Count == 0)
+                        {
+                            Console.WriteLine("No tasks available to mark as complete.");
+                            ShowMenu();
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Select the task to mark as complete:");
+                            for (int i = 0; i < taskList.ThingsToDo.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {taskList.ThingsToDo[i]}");
+                            }
+                            Console.WriteLine("0. Go back");
+                            if (!int.TryParse(Console.ReadLine(), out int completeTaskNumber) || completeTaskNumber < 0 || completeTaskNumber > taskList.ThingsToDo.Count)
+                            {
+                                Console.WriteLine("Invalid task number.");
+                                ShowMenu();
+                                break;
+                            }
+                            if (completeTaskNumber == 0)
+                            {
+                                ShowMenu();
+                                break;
+                            }
+                            taskList.ThingsToDo[completeTaskNumber - 1].MarkAsCompleted();
+                            Console.WriteLine("Task marked as complete!");
+                            Console.WriteLine();
+                            ShowMenu();
+                        }
+                        break;
+
+
+                    case 4:
                         // Remove a task
 
                         if (taskList.ThingsToDo.Count == 0)
@@ -187,7 +222,7 @@
                         }
 
                         break;
-                    case 4:
+                    case 5:
                         // View all tasks
 
                         if (taskList.ThingsToDo.Count == 0)
@@ -200,14 +235,14 @@
                             taskList.DisplayThingsToDo();
                         }
                         break;
-                    case 5:
+                    case 6:
                         running = false;
                         break;
                     default:
-                        Console.WriteLine("Invalid choice. Please enter a number between 1 and 5.");
+                        Console.WriteLine("Invalid choice. Please enter a number between 1 and 6.");
                         break;
                 }
-                Console.Write("Enter your choice (1-5): ");
+                Console.Write("Enter your choice (1-6): ");
                 choice = int.Parse(Console.ReadLine());
             }
         }
@@ -218,9 +253,10 @@
             Console.WriteLine();
             Console.WriteLine("1. Add a new task");
             Console.WriteLine("2. Edit a task");
-            Console.WriteLine("3. Remove a task");
-            Console.WriteLine("4. View all tasks");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("3. Mark a task as complete");
+            Console.WriteLine("4. Remove a task");
+            Console.WriteLine("5. View all tasks");
+            Console.WriteLine("6. Exit");
             Console.WriteLine();
         }
     }
