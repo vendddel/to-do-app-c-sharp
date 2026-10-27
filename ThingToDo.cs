@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace to_do_app_c_sharp
 {
@@ -10,13 +8,16 @@ namespace to_do_app_c_sharp
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsCompleted { get; set; }
-        public ThingToDo(string title, string description, DateTime dueDate)
+
+        [JsonConstructor]
+        public ThingToDo(string title, string description, DateTime dueDate, bool isCompleted = false)
         {
             Title = title;
             Description = description;
             DueDate = dueDate;
-            IsCompleted = false;
+            IsCompleted = isCompleted;
         }
+
         public void MarkAsCompleted()
         {
             IsCompleted = true;
